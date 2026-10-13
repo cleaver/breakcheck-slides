@@ -501,6 +501,12 @@ Identifies these key metrics:
 - Change failure rate
 - Mean time to recovery
 
+<v-click>
+
+  ## Key element: Feedback
+
+</v-click>
+
 ---
 level: 2
 ---
@@ -511,10 +517,65 @@ level: 2
   src="./images/accelerate.png"
   alt="Cover of Accelerate"
   class="block mx-auto"
-  style="max-height: 50vh; max-width: 100%; object-fit: contain;"
+  style="max-height: 45vh; max-width: 100%; object-fit: contain;"
 />
 
-<!-- Don't delete below -->
+---
+level: 2
+---
+
+# Removing Yourself as a Bottleneck
+
+- Tightest possible loop
+- Small changes
+- Verify (BDD? Acceptance testing? Approval testing?)
+
+(Help the agent to understand what you want)
+
+---
+level: 2
+---
+
+# Using Breakcheck for Verification
+
+Real life use case in agentic development:
+
+<v-clicks>
+
+- Upgrading Astro from V4 to V7.
+- Make a few other layout changes.
+
+</v-clicks>
+
+
+---
+layout: section
+---
+
+# The Future
+
+---
+level: 2
+---
+
+# Request
+
+If you use agents, I'd like you to:
+
+<v-clicks>
+
+- Try out Breakcheck and give me feedback.
+- Try other verification tools.
+- Build your own verification tools.
+- Do your own presentation, or blog post, or NPM module.
+
+</v-clicks>
+---
+level: 2
+---
+
+# Q & A
+
 ---
 level: 2
 layout: center
@@ -531,58 +592,3 @@ class: text-center
 
 [https://github.com/cleaver/breakcheck-slides](https://github.com/cleaver/breakcheck-slides)
 
----
-## level: 2
----
-
-- approval testing - compare to an established baseline
-  - upgrades (e.g. framework / dependencies / CMS plugin)
-  - large-scale refactoring
-
-- migrations
-
-- regression testing during dev
-  - bc observes the results (output independent of input)
-
-- blast radius tests - look for changes outside expected area
-
-```json
-{
-  "task": "Add blog category filtering",
-  "expectedChanges": ["/blog"],
-  "unchanged": ["/", "/about", "/contact", "/blog/*"]
-}
-```
-
-- help agents understand an existing app
-  - make small experimental changes then check the output
-
-- improve tests - detect changes that existing tests don't cover
-  - possibly together with mutation tests - looking for case when tests don't detect the mutation, but breakcheck does
-
-- future:
-  - semantic diff
-
-```json
-{
-  "url": "/products",
-  "severity": "warning",
-  "changes": [
-    {
-      "type": "element_removed",
-      "selector": "main h1",
-      "before": "Our Products",
-      "after": null,
-      "message": "Primary heading was removed"
-    },
-    {
-      "type": "attribute_changed",
-      "selector": "form.search",
-      "attribute": "action",
-      "before": "/search",
-      "after": "/",
-      "message": "Form submission destination changed"
-    }
-  ]
-}
-```
