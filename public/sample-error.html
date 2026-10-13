@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page Error — Maple & Co.</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #f5f6f8;
+        color: #263244;
+        font-family: system-ui, sans-serif;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 24px 6%;
+        background: white;
+        border-bottom: 1px solid #e1e5eb;
+      }
+
+      .brand {
+        font-size: 22px;
+        font-weight: 750;
+        color: #1c614b;
+      }
+
+      nav {
+        display: flex;
+        gap: 24px;
+      }
+
+      nav a {
+        color: #536174;
+        text-decoration: none;
+      }
+
+      main {
+        max-width: 850px;
+        margin: 64px auto;
+        padding: 0 24px;
+      }
+
+      .error-card {
+        overflow: hidden;
+        background: white;
+        border: 1px solid #e1e5eb;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px #26324408;
+      }
+
+      .error-heading {
+        padding: 28px;
+        background: #fff3f2;
+        border-bottom: 1px solid #f4ceca;
+      }
+
+      .status {
+        display: inline-block;
+        padding: 5px 10px;
+        background: #fce0dc;
+        color: #9d2920;
+        border-radius: 5px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+
+      h1 {
+        margin: 16px 0 10px;
+        font-size: clamp(24px, 4vw, 32px);
+      }
+
+      p {
+        line-height: 1.6;
+        color: #647184;
+      }
+
+      .error-heading p {
+        margin-bottom: 0;
+      }
+
+      .details {
+        padding: 28px;
+      }
+
+      .notice {
+        padding: 16px;
+        background: #fff9e8;
+        border-left: 4px solid #e5b649;
+        border-radius: 4px;
+        line-height: 1.6;
+      }
+
+      pre {
+        margin: 20px 0;
+        padding: 20px;
+        overflow-x: auto;
+        background: #18212f;
+        color: #f7b6b0;
+        border-radius: 8px;
+        font:
+          13px/1.7 ui-monospace,
+          monospace;
+      }
+
+      dl {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        gap: 12px;
+        font-size: 14px;
+      }
+
+      dt {
+        color: #647184;
+      }
+      dd {
+        margin: 0;
+        overflow-wrap: anywhere;
+      }
+
+      .demo-label {
+        margin-top: 24px;
+        font-size: 12px;
+        color: #8390a0;
+      }
+
+      footer {
+        padding: 32px 24px;
+        text-align: center;
+        color: #8390a0;
+        font-size: 13px;
+      }
+
+      @media (max-width: 540px) {
+        header {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        nav {
+          gap: 16px;
+          font-size: 14px;
+        }
+        main {
+          margin: 32px auto;
+        }
+        dl {
+          grid-template-columns: 1fr;
+          gap: 6px;
+        }
+        dd {
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">Maple & Co.</div>
+      <nav aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/journal">Journal</a>
+        <a href="/about">About</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="error-card" aria-labelledby="error-title">
+        <div class="error-heading">
+          <span class="status">500 · INTERNAL SERVER ERROR</span>
+          <h1 id="error-title">This page couldn’t be loaded.</h1>
+          <p>
+            Something went wrong while displaying our latest articles. The rest
+            of the site may still be available.
+          </p>
+        </div>
+
+        <div class="details">
+          <div class="notice">
+            <strong>Plugin update failed:</strong>
+            ContentBlocks was updated from version 2.8.4 to 3.0.0. The new
+            version requires a rendering method that this CMS version does not
+            provide.
+          </div>
+
+          <pre><code>Fatal error: Uncaught Error:
+Call to undefined method CMS\Renderer::renderBlockV3()
+
+in /plugins/contentblocks/src/BlockRenderer.php:87
+
+Stack trace:
+#0 /themes/maple/templates/journal.php(24):
+   ContentBlocks\BlockRenderer-&gt;render()
+#1 /cms/Page.php(156): include('...')
+#2 /public/index.php(18): CMS\Page-&gt;display()</code></pre>
+
+          <dl>
+            <dt>Plugin</dt>
+            <dd>ContentBlocks 3.0.0</dd>
+
+            <dt>Installed CMS</dt>
+            <dd>ExampleCMS 5.7.2</dd>
+
+            <dt>Plugin requirement</dt>
+            <dd>ExampleCMS 6.0 or newer</dd>
+
+            <dt>Affected page</dt>
+            <dd>/journal</dd>
+          </dl>
+
+          <p class="demo-label">
+            Fictional demonstration. All product names, versions, and error
+            details are illustrative. The HTTP status shown here is part of the
+            mockup, not an actual server response.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>© Maple & Co. · Thoughtfully made, temporarily broken.</footer>
+  </body>
+</html>
