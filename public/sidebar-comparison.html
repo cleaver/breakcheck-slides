@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sidebar position comparison</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-width: 1168px;
+        min-height: 688px;
+      }
+
+      body {
+        padding: 24px;
+        background: #e8edf4;
+        color: #243047;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      /* Fixed dimensions. No breakpoints or responsive resizing. */
+      .comparison {
+        display: flex;
+        gap: 24px;
+        width: 1120px;
+        height: 640px;
+        margin: 0 auto;
+      }
+
+      .example {
+        width: 548px;
+        flex: 0 0 548px;
+      }
+
+      .example-label {
+        height: 44px;
+        margin: 0;
+        font-size: 19px;
+        line-height: 30px;
+        font-weight: 700;
+        text-align: center;
+        color: #374151;
+      }
+
+      .page {
+        width: 548px;
+        height: 596px;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid #cbd5e1;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgb(30 41 59 / 10%);
+      }
+
+      .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+        padding: 0 22px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 19px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+      }
+
+      .brand-icon {
+        width: 23px;
+        height: 23px;
+        background: #27364f;
+        border-radius: 6px;
+      }
+
+      .avatar {
+        display: grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #e8edf4;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .page-body {
+        display: flex;
+        height: 532px;
+      }
+
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        width: 146px;
+        flex: 0 0 146px;
+        padding: 26px 14px 20px;
+        background: #6d28d9;
+        color: #fff;
+      }
+
+      /* Only the sidebar's position changes. */
+      .sidebar-right .sidebar {
+        order: 2;
+      }
+
+      .sidebar-title {
+        margin: 0 0 24px;
+        padding: 0 10px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1.6px;
+        text-transform: uppercase;
+        color: #e9d5ff;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        height: 40px;
+        margin-bottom: 7px;
+        padding: 0 10px;
+        border-radius: 7px;
+        font-size: 12px;
+        color: #ede9fe;
+      }
+
+      .nav-item.active {
+        background: #fff;
+        color: #5b21b6;
+        font-weight: 700;
+      }
+
+      .nav-icon {
+        width: 12px;
+        height: 12px;
+        flex: 0 0 12px;
+        border: 1.5px solid currentColor;
+        border-radius: 3px;
+        opacity: 0.85;
+      }
+
+      .sidebar-footer {
+        margin-top: auto;
+        padding: 14px 10px 0;
+        border-top: 1px solid rgb(255 255 255 / 25%);
+        font-size: 11px;
+        line-height: 1.6;
+        color: #e9d5ff;
+      }
+
+      .content {
+        width: 400px;
+        flex: 0 0 400px;
+        padding: 27px 22px;
+        background: #f8fafc;
+      }
+
+      .eyebrow {
+        margin: 0 0 7px;
+        color: #64748b;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0 0 7px;
+        font-size: 26px;
+        letter-spacing: -0.8px;
+      }
+
+      .subtitle {
+        margin: 0 0 24px;
+        color: #64748b;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .stats {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .stat {
+        width: 173px;
+        padding: 16px;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 9px;
+      }
+
+      .stat-label {
+        margin-bottom: 9px;
+        color: #64748b;
+        font-size: 11px;
+      }
+
+      .stat-value {
+        font-size: 25px;
+        font-weight: 700;
+        letter-spacing: -0.6px;
+      }
+
+      .stat-note {
+        margin-top: 7px;
+        color: #15803d;
+        font-size: 10px;
+      }
+
+      .card {
+        padding: 17px;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 9px;
+      }
+
+      .card-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 19px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .card-heading span {
+        color: #94a3b8;
+        font-size: 10px;
+        font-weight: 400;
+      }
+
+      .chart {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        height: 114px;
+        padding: 0 8px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .bar {
+        width: 25px;
+        height: var(--height);
+        background: #94b2cb;
+        border-radius: 4px 4px 0 0;
+      }
+
+      .chart-labels {
+        display: flex;
+        justify-content: space-between;
+        padding: 9px 9px 0;
+        color: #94a3b8;
+        font-size: 9px;
+      }
+
+      .activity {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 17px;
+        padding: 13px 14px;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 9px;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        flex: 0 0 8px;
+        background: #22c55e;
+        border-radius: 50%;
+      }
+
+      .activity-text {
+        font-size: 11px;
+        color: #475569;
+      }
+
+      .activity-time {
+        margin-left: auto;
+        color: #94a3b8;
+        font-size: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="comparison" aria-label="Sidebar layout comparison">
+      <section class="example">
+        <h2 class="example-label">Before · Sidebar on the left</h2>
+        <div class="page sidebar-left" id="before"></div>
+      </section>
+
+      <section class="example">
+        <h2 class="example-label">After · Sidebar on the right</h2>
+        <div class="page sidebar-right" id="after"></div>
+      </section>
+    </main>
+
+    <!-- Both pages use the exact same markup. -->
+    <template id="page-template">
+      <header class="page-header">
+        <div class="brand">
+          <span class="brand-icon" aria-hidden="true"></span>
+          Northstar
+        </div>
+        <div class="avatar" aria-label="User profile">JD</div>
+      </header>
+
+      <div class="page-body">
+        <aside class="sidebar" aria-label="Workspace navigation">
+          <p class="sidebar-title">Workspace</p>
+
+          <nav>
+            <div class="nav-item active">
+              <span class="nav-icon" aria-hidden="true"></span>
+              Overview
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon" aria-hidden="true"></span>
+              Projects
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon" aria-hidden="true"></span>
+              Reports
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon" aria-hidden="true"></span>
+              Team
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon" aria-hidden="true"></span>
+              Settings
+            </div>
+          </nav>
+
+          <div class="sidebar-footer">
+            Northstar Studio<br />
+            Pro workspace
+          </div>
+        </aside>
+
+        <section class="content" aria-label="Dashboard">
+          <p class="eyebrow">Your workspace</p>
+          <h1>Overview</h1>
+          <p class="subtitle">A quick look at how your projects are doing.</p>
+
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-label">Active projects</div>
+              <div class="stat-value">24</div>
+              <div class="stat-note">+4 this month</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Tasks completed</div>
+              <div class="stat-value">148</div>
+              <div class="stat-note">+12% this month</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-heading">
+              Weekly activity
+              <span>Last 7 days</span>
+            </div>
+
+            <div class="chart" aria-label="Weekly activity bar chart">
+              <div class="bar" style="--height: 42%"></div>
+              <div class="bar" style="--height: 65%"></div>
+              <div class="bar" style="--height: 53%"></div>
+              <div class="bar" style="--height: 82%"></div>
+              <div class="bar" style="--height: 70%"></div>
+              <div class="bar" style="--height: 95%"></div>
+              <div class="bar" style="--height: 76%"></div>
+            </div>
+
+            <div class="chart-labels">
+              <span>M</span>
+              <span>T</span>
+              <span>W</span>
+              <span>T</span>
+              <span>F</span>
+              <span>S</span>
+              <span>S</span>
+            </div>
+          </div>
+
+          <div class="activity">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="activity-text">All projects are up to date</span>
+            <span class="activity-time">Just now</span>
+          </div>
+        </section>
+      </div>
+    </template>
+
+    <script>
+      const template = document.getElementById("page-template");
+
+      for (const id of ["before", "after"]) {
+        document.getElementById(id).append(template.content.cloneNode(true));
+      }
+    </script>
+  </body>
+</html>

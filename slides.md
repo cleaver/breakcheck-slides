@@ -51,6 +51,10 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 # Introduction
 
+- About Breakcheck--what is it?
+- How I've used it with agentic development.
+- The future.
+
 ---
 ## level: 2
 ---
@@ -71,10 +75,14 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 # About Me
 
+<v-clicks>
+
 - I started out building enterprise-type software. (Java etc.)
 - Changed focus to building CMS-powered websites.
-- These things break.
+- Websites break all the time.
 - I like motorsports.
+
+</v-clicks>
 
 ---
 ## layout: section
@@ -98,31 +106,11 @@ The last comment block of each slide will be treated as slide notes. It will be 
 ## level: 2
 ---
 
-# Breakcheck -- What Is It?
-
-1. Crawl your site and take a snapshot.
-2. Make changes.
-3. Crawl again.
-4. Compare the differences.
-
----
-layout: iframe
-url: /sample-error.html
----
-
----
-## level: 2
----
-
----
-## level: 2
----
-
 # Breakcheck -- History
 
 <v-clicks>
 
-- I worked on [sitediff](https://github.com/evolvingweb/sitediff) (Ruby) starting 2020.
+- I worked on [sitediff](https://github.com/evolvingweb/sitediff) (Ruby) starting 2020. (Project dates to 2014.)
 - Started jssitediff (Javascript) in 2021.
 - Started [Breakcheck](https://github.com/cleaver/breakcheck) in early 2025.
 - First major plan-based agent development.
@@ -133,10 +121,156 @@ url: /sample-error.html
 ## level: 2
 ---
 
+# Breakcheck Scenario
+
+- Your CMS and plugins need to be updated.
+- You run the updates.
+- Then...
+
+---
+layout: iframe
+url: /sample-error.html
+---
+
+---
+layout: two-cols-header
+## level: 2
+---
+
+# Breakcheck -- What Is It?
+
+::left::
+
+## Approval Testing
+
+1. Test and record baseline output.
+2. Make changes.
+3. Test again.
+4. Compare the differences.
+5. Approve or reject each difference.
+
+::right::
+
+<v-click>
+
+## With Breakcheck
+
+1. Crawl your site and take a snapshot.
+2. Make changes.
+3. Crawl again.
+4. Compare the differences.
+5. Approve or reject each difference.
+
+</v-click>
+
+---
+## level: 2
+---
+
+# The Problem
+
+![Noisy Diff](./images/noisy-diff.png)
+
+---
+## level: 2
+---
+
+# My Approach:
+
+Write a domain-specific language (DSL) to describe what is allowed to be different.
+
+```lua
+-- comment
+
+css:[SELECTOR] do: action [MODIFIERS...]
+
+-- or
+
+css:[SELECTOR] do
+  action [MODIFIERS...]
+  action [MODIFIERS...]
+end
+```
+
+
+
+---
+## level: 2
+---
+
+# DSL Details
+
+- **Actions:**
+
+  - `exclude`: Removes the selected element entirely.
+  - `remove_attr`: Removes a specific attribute from an element.
+  - `rewrite_attr`: Rewrites the value of an attribute, useful for normalizing URLs or IDs.
+  - `rewrite_content`: Rewrites the text inside an element.
+
+- **Modifiers:**
+  - `attr:"<attribute_name>"`: Specifies the target attribute (e.g., `attr:"href"`).
+  - `regex:"<pattern>"`: A regular expression for matching and capturing.
+  - `replace:"<replacement>"`: The string to replace matches with. Can use capture groups like `$1`.
+  - `content_regex:"<pattern>"`: Applies the action only if the element's text content matches the regex.
+  - `name:"<identifier>"`: Names a region. Names must match `[A-Za-z_][A-Za-z0-9_]*` and be unique.
+
+
+---
+## level: 2
+---
+
+# Examples
+
+```lua
+-- ignore head:
+css:head do: exclude
+
+-- ignore a class that was changed:
+css: article header h1.mb-2, article header h1.article-title do: remove_attr attr:"class"
+
+-- Remove cache-busting query parameters from images in format:
+--   `<img src="/images/logo.png?v=17283920">`
+css:img[src*="?v="] do: rewrite_attr attr:"src" regex:"\\?v=[^&#]*" replace:""
+```
+
+---
+## level: 2
+---
+
+# Examples
+
+```lua
+css: figure.my-8.relative img.rounded-lg do 
+  rewrite_attr attr:"src" regex:".*" replace:"hero-image-url"
+  remove_attr attr:"srcset"
+  remove_attr attr:"data-image-component"
+  remove_attr attr:"width"
+  remove_attr attr:"height"
+  remove_attr attr:"loading"
+  remove_attr attr:"decoding"
+  remove_attr attr:"fetchpriority"
+end
+```
+
+---
+## level: 2
+---
+
+# DSL Continued...
+
+- **Named regions:**
+
+  - `css:[SELECTOR] do: region name:"[IDENTIFIER]"`: Selects a named section for stable comparison ordering.
+
+---
+## level: 2
+---
+
 - approval testing - compare to an established baseline
   - upgrades (e.g. framework / dependencies / CMS plugin)
   - large-scale refactoring
-  - migrations
+
+- migrations
 
 - regression testing during dev
   - bc observes the results (output independent of input)
