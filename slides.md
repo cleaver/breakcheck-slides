@@ -366,6 +366,117 @@ npm install --save-dev @cleaver/breakcheck
 
 Requires Node.js 22.12 or newer.
 
+---
+level: 2
+---
+
+# Snapshot, compare, view
+
+With the site running at `http://localhost:4321`:
+
+```sh
+npx breakcheck snapshot --url http://localhost:4321 --name before
+
+# Make a change
+
+npx breakcheck snapshot --url http://localhost:4321 --name after
+npx breakcheck compare --before before --after after --output update-check
+npx breakcheck view update-check
+```
+
+<!--
+Source: Breakcheck README, Core Workflow and Command Reference — https://github.com/cleaver/breakcheck
+-->
+
+---
+level: 2
+---
+
+# Sample Ruleset
+
+<div class="overflow-y-auto max-h-9/10">
+
+```lua
+-- Ignore deployment/runtime head metadata and scripts while reviewing page markup.
+css:head do: exclude
+css:script do: exclude
+css:[data-astro-source-file] do: remove_attr attr:"data-astro-source-file"
+css:[data-astro-source-loc] do: remove_attr attr:"data-astro-source-loc"
+css:.article-prose do: rewrite_attr attr:"class" regex:"article-prose\W*" replace:""
+
+css:article.mx-auto div.prose.dark\:prose-invert do
+  rewrite_attr attr:"class" regex:"(prose-h1:font-bold)\W*" replace:""
+  rewrite_attr attr:"class" regex:"(prose-h1:text-xl)\W*" replace:""
+  rewrite_attr attr:"class" regex:"(prose-a:hover:no-underline)\W*" replace:""
+  rewrite_attr attr:"class" regex:"(max-w-4xl)\W*\s*" replace:""
+  rewrite_attr attr:"class" regex:"(max-w-none)\W*\s*" replace:""
+end
+
+css:nav.hidden.space-x-4 a, div.space-y-1.px-2 a.rounded-md do
+  rewrite_attr attr:"class" regex:" text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800" replace: ""
+  rewrite_attr attr:"class" regex:" bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white" replace:""
+  remove_attr attr:"aria-current"
+end
+
+-- blog article
+
+css: article header h1.mb-2, article header h1.article-title do: remove_attr attr:"class"
+css: article header div.mb-4, article header div.article-metadata do: remove_attr attr:"class"
+css: article header.article-header do: rewrite_attr attr:"class" regex:"article-header " replace:""
+css: figure.my-8.relative img.rounded-lg do 
+  rewrite_attr attr:"src" regex:".*" replace:"hero-image-url"
+  remove_attr attr:"srcset"
+  remove_attr attr:"data-image-component"
+  remove_attr attr:"width"
+  remove_attr attr:"height"
+  remove_attr attr:"loading"
+  remove_attr attr:"decoding"
+  remove_attr attr:"fetchpriority"
+end
+
+css:pre.astro-code code do: exclude
+
+-- blog index
+
+css:main#main-content article.homepage-entry do: rewrite_attr attr:"class" regex:"homepage-entry " replace:""
+css:main#main-content article h2 do: remove_attr attr:"class"
+css:main#main-content article time do: remove_attr attr:"class"
+css:main#main-content div.homepage-excerpt do: rewrite_attr attr:"class" regex:"homepage-excerpt " replace:""
+css:main#main-content a.homepage-read-more do: rewrite_attr attr:"class" regex:"homepage-read-more " replace:""
+```
+</div>
+
+---
+level: 2
+---
+
+# Types of Testing
+
+<v-clicks>
+
+- Approval testing - compare to an established baseline
+  - upgrades (e.g. framework / dependencies / CMS plugin)
+  - large-scale refactoring
+
+- Migrations
+
+- Regression testing during dev
+  - breakcheck observes the results (output independent of input)
+
+- Blast radius tests - look for changes outside expected area
+
+</v-clicks>
+
+---
+layout: section
+---
+
+# Part 2 - Agentic Development
+
+---
+level:2
+---
+
 
 
 <!-- Don't delete below -->
