@@ -26,7 +26,7 @@ duration: 35min
 
 # Breakcheck
 
-Acceptance testing tool
+Acceptance testing/Agentic development/The future
 
 <div @click="$slidev.nav.next" class="mt-12 py-1" hover:bg="white op-10">
   Space to continue <carbon:arrow-right />
@@ -46,7 +46,13 @@ The last comment block of each slide will be treated as slide notes. It will be 
 -->
 
 ---
-## layout: section
+layout: section
+---
+
+# Introduction
+
+---
+## level: 2
 ---
 
 # Introduction
@@ -85,7 +91,7 @@ The last comment block of each slide will be treated as slide notes. It will be 
 </v-clicks>
 
 ---
-## layout: section
+layout: section
 ---
 
 # Breakcheck
@@ -113,7 +119,7 @@ The last comment block of each slide will be treated as slide notes. It will be 
 - I worked on [sitediff](https://github.com/evolvingweb/sitediff) (Ruby) starting 2020. (Project dates to 2014.)
 - Started jssitediff (Javascript) in 2021.
 - Started [Breakcheck](https://github.com/cleaver/breakcheck) in early 2025.
-- First major plan-based agent development.
+  - First major plan-based agent development.
 
 </v-clicks>
 
@@ -298,12 +304,12 @@ level: 2
   - `css:[SELECTOR] do: region name:"[IDENTIFIER]"`: Selects a named section for stable comparison ordering.
 
 ---
-## level: 2
+level: 2
 ---
 
 # Normalized Section Order
 
-Give the same parts of each page stable names:
+Name the page regions. Breakcheck emits named regions in alphabetical order by region name and omits everything without a region name:
 
 ```lua
 css:.page-header do: region name:"header"
@@ -311,11 +317,73 @@ css:.content do: region name:"content"
 css:.sidebar do: region name:"sidebar"
 ```
 
-The sidebar moves in the DOM, but compare both pages in the same order:
+The DOM order differs, but both pages normalize to `content` → `header` → `sidebar`.
 
-- Before DOM: `header → sidebar → content`
-- After DOM: `header → content → sidebar`
-- Normalized comparison: `header → content → sidebar` for both
+The unnamed `.page` and `.page-body` elements are omitted.
+
+---
+level: 2
+---
+
+# Normalized Output
+
+The before and after pages produce the same named sections in alphabetical order:
+
+```html
+<breakcheck-regions>
+  <region name="content">
+    <section class="content"></section>
+  </region>
+  <region name="header">
+    <header class="page-header"></header>
+  </region>
+  <region name="sidebar">
+    <aside class="sidebar"></aside>
+  </region>
+</breakcheck-regions>
+```
+
+
+---
+layout: section
+---
+
+# Workflow
+
+---
+level: 2
+---
+
+# Setup
+
+In a Javascript or Typescript project, Breakcheck is a project-local development dependency.
+
+## Install and run
+
+```sh
+npm install --save-dev @cleaver/breakcheck
+```
+
+Requires Node.js 22.12 or newer.
+
+
+
+<!-- Don't delete below -->
+---
+level: 2
+layout: center
+class: text-center
+---
+
+# Slides for the Presentation
+
+<img
+  src="./images/breakcheck-slides-qr.svg"
+  alt="QR code linking to the Breakcheck slides on GitHub"
+  class="mx-auto mt-6 w-72"
+/>
+
+[https://github.com/cleaver/breakcheck-slides](https://github.com/cleaver/breakcheck-slides)
 
 ---
 ## level: 2
