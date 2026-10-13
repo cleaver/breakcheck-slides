@@ -253,14 +253,69 @@ end
 ```
 
 ---
+layout: iframe
+url: /sidebar-comparison.html
+---
+
+---
+level: 2
+---
+
+# Different Order Markup
+
+## Before
+
+```html
+<div class="page">
+  <header class="page-header"></header>
+  <div class="page-body">
+    <aside class="sidebar"></aside>
+    <section class="content"></section>
+  </div>
+</div>
+```
+
+## After
+
+```html
+<div class="page">
+  <header class="page-header"></header>
+  <div class="page-body">
+    <section class="content"></section>
+    <aside class="sidebar"></aside>
+  </div>
+</div>
+```
+
+---
 ## level: 2
 ---
 
-# DSL Continued...
+# Named Regions
 
 - **Named regions:**
 
   - `css:[SELECTOR] do: region name:"[IDENTIFIER]"`: Selects a named section for stable comparison ordering.
+
+---
+## level: 2
+---
+
+# Normalized Section Order
+
+Give the same parts of each page stable names:
+
+```lua
+css:.page-header do: region name:"header"
+css:.content do: region name:"content"
+css:.sidebar do: region name:"sidebar"
+```
+
+The sidebar moves in the DOM, but compare both pages in the same order:
+
+- Before DOM: `header → sidebar → content`
+- After DOM: `header → content → sidebar`
+- Normalized comparison: `header → content → sidebar` for both
 
 ---
 ## level: 2

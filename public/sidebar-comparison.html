@@ -24,7 +24,6 @@
         font-family: Arial, Helvetica, sans-serif;
       }
 
-      /* Fixed dimensions. No breakpoints or responsive resizing. */
       .comparison {
         display: flex;
         gap: 24px;
@@ -107,11 +106,6 @@
         padding: 26px 14px 20px;
         background: #6d28d9;
         color: #fff;
-      }
-
-      /* Only the sidebar's position changes. */
-      .sidebar-right .sidebar {
-        order: 2;
       }
 
       .sidebar-title {
@@ -303,118 +297,209 @@
     <main class="comparison" aria-label="Sidebar layout comparison">
       <section class="example">
         <h2 class="example-label">Before · Sidebar on the left</h2>
-        <div class="page sidebar-left" id="before"></div>
+
+        <div class="page">
+          <header class="page-header">
+            <div class="brand">
+              <span class="brand-icon" aria-hidden="true"></span>
+              Northstar
+            </div>
+            <div class="avatar" aria-label="User profile">JD</div>
+          </header>
+
+          <div class="page-body">
+            <!-- Before: sidebar precedes content in the markup. -->
+            <aside class="sidebar" aria-label="Workspace navigation">
+              <p class="sidebar-title">Workspace</p>
+
+              <nav>
+                <div class="nav-item active">
+                  <span class="nav-icon" aria-hidden="true"></span>
+                  Overview
+                </div>
+                <div class="nav-item">
+                  <span class="nav-icon" aria-hidden="true"></span>
+                  Projects
+                </div>
+                <div class="nav-item">
+                  <span class="nav-icon" aria-hidden="true"></span>
+                  Reports
+                </div>
+                <div class="nav-item">
+                  <span class="nav-icon" aria-hidden="true"></span>
+                  Team
+                </div>
+                <div class="nav-item">
+                  <span class="nav-icon" aria-hidden="true"></span>
+                  Settings
+                </div>
+              </nav>
+
+              <div class="sidebar-footer">
+                Northstar Studio<br />
+                Pro workspace
+              </div>
+            </aside>
+
+            <section class="content" aria-label="Dashboard">
+              <p class="eyebrow">Your workspace</p>
+              <h1>Overview</h1>
+              <p class="subtitle">
+                A quick look at how your projects are doing.
+              </p>
+
+              <div class="stats">
+                <div class="stat">
+                  <div class="stat-label">Active projects</div>
+                  <div class="stat-value">24</div>
+                  <div class="stat-note">+4 this month</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-label">Tasks completed</div>
+                  <div class="stat-value">148</div>
+                  <div class="stat-note">+12% this month</div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-heading">
+                  Weekly activity
+                  <span>Last 7 days</span>
+                </div>
+
+                <div class="chart" aria-label="Weekly activity bar chart">
+                  <div class="bar" style="--height: 42%"></div>
+                  <div class="bar" style="--height: 65%"></div>
+                  <div class="bar" style="--height: 53%"></div>
+                  <div class="bar" style="--height: 82%"></div>
+                  <div class="bar" style="--height: 70%"></div>
+                  <div class="bar" style="--height: 95%"></div>
+                  <div class="bar" style="--height: 76%"></div>
+                </div>
+
+                <div class="chart-labels">
+                  <span>M</span>
+                  <span>T</span>
+                  <span>W</span>
+                  <span>T</span>
+                  <span>F</span>
+                  <span>S</span>
+                  <span>S</span>
+                </div>
+              </div>
+
+              <div class="activity">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span class="activity-text">All projects are up to date</span>
+                <span class="activity-time">Just now</span>
+              </div>
+            </section>
+          </div>
+        </div>
       </section>
 
       <section class="example">
         <h2 class="example-label">After · Sidebar on the right</h2>
-        <div class="page sidebar-right" id="after"></div>
+
+        <div class="page">
+          <header class="page-header">
+            <div class="brand">
+              <span class="brand-icon" aria-hidden="true"></span>
+              Northstar
+            </div>
+            <div class="avatar" aria-label="User profile">JD</div>
+          </header>
+
+          <div class="page-body">
+            <!-- After: content precedes sidebar in the markup. -->
+            <section class="content" aria-label="Dashboard">
+              <p class="eyebrow">Your workspace</p>
+              <h1>Overview</h1>
+              <p class="subtitle">
+                A quick look at how your projects are doing.
+              </p>
+
+              <div class="stats">
+                <div class="stat">
+                  <div class="stat-label">Active projects</div>
+                  <div class="stat-value">24</div>
+                  <div class="stat-note">+4 this month</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-label">Tasks completed</div>
+                  <div class="stat-value">148</div>
+                  <div class="stat-note">+12% this month</div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-heading">
+                  Weekly activity
+                  <span>Last 7 days</span>
+                </div>
+
+                <div class="chart" aria-label="Weekly activity bar chart">
+                  <div class="bar" style="--height: 42%"></div>
+                  <div class="bar" style="--height: 65%"></div>
+                  <div class="bar" style="--height: 53%"></div>
+                  <div class="bar" style="--height: 82%"></div>
+                  <div class="bar" style="--height: 70%"></div>
+                  <div class="bar" style="--height: 95%"></div>
+                  <div class="bar" style="--height: 76%"></div>
+                </div>
+
+                <div class="chart-labels">
+                  <span>M</span>
+                  <span>T</span>
+                  <span>W</span>
+                  <span>T</span>
+                  <span>F</span>
+                  <span>S</span>
+                  <span>S</span>
+                </div>
+              </div>
+
+              <div class="activity">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span class="activity-text">All projects are up to date</span>
+                <span class="activity-time">Just now</span>
+              </div>
+            </section>
+
+            <aside class="sidebar" aria-label="Workspace navigation">
+              <p class="sidebar-title">Workspace</p>
+
+              <nav>
+                <div class="nav-item active">
+                  <span class="nav-icon" aria-hidden="true"></span>
+                  Overview
+                </div>
+                <div class="nav-item">
+                  <span class="nav-icon" aria-hidden="true"></span>
+                  Projects
+                </div>
+                <div class="nav-item">
+                  <span class="nav-icon" aria-hidden="true"></span>
+                  Reports
+                </div>
+                <div class="nav-item">
+                  <span class="nav-icon" aria-hidden="true"></span>
+                  Team
+                </div>
+                <div class="nav-item">
+                  <span class="nav-icon" aria-hidden="true"></span>
+                  Settings
+                </div>
+              </nav>
+
+              <div class="sidebar-footer">
+                Northstar Studio<br />
+                Pro workspace
+              </div>
+            </aside>
+          </div>
+        </div>
       </section>
     </main>
-
-    <!-- Both pages use the exact same markup. -->
-    <template id="page-template">
-      <header class="page-header">
-        <div class="brand">
-          <span class="brand-icon" aria-hidden="true"></span>
-          Northstar
-        </div>
-        <div class="avatar" aria-label="User profile">JD</div>
-      </header>
-
-      <div class="page-body">
-        <aside class="sidebar" aria-label="Workspace navigation">
-          <p class="sidebar-title">Workspace</p>
-
-          <nav>
-            <div class="nav-item active">
-              <span class="nav-icon" aria-hidden="true"></span>
-              Overview
-            </div>
-            <div class="nav-item">
-              <span class="nav-icon" aria-hidden="true"></span>
-              Projects
-            </div>
-            <div class="nav-item">
-              <span class="nav-icon" aria-hidden="true"></span>
-              Reports
-            </div>
-            <div class="nav-item">
-              <span class="nav-icon" aria-hidden="true"></span>
-              Team
-            </div>
-            <div class="nav-item">
-              <span class="nav-icon" aria-hidden="true"></span>
-              Settings
-            </div>
-          </nav>
-
-          <div class="sidebar-footer">
-            Northstar Studio<br />
-            Pro workspace
-          </div>
-        </aside>
-
-        <section class="content" aria-label="Dashboard">
-          <p class="eyebrow">Your workspace</p>
-          <h1>Overview</h1>
-          <p class="subtitle">A quick look at how your projects are doing.</p>
-
-          <div class="stats">
-            <div class="stat">
-              <div class="stat-label">Active projects</div>
-              <div class="stat-value">24</div>
-              <div class="stat-note">+4 this month</div>
-            </div>
-            <div class="stat">
-              <div class="stat-label">Tasks completed</div>
-              <div class="stat-value">148</div>
-              <div class="stat-note">+12% this month</div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-heading">
-              Weekly activity
-              <span>Last 7 days</span>
-            </div>
-
-            <div class="chart" aria-label="Weekly activity bar chart">
-              <div class="bar" style="--height: 42%"></div>
-              <div class="bar" style="--height: 65%"></div>
-              <div class="bar" style="--height: 53%"></div>
-              <div class="bar" style="--height: 82%"></div>
-              <div class="bar" style="--height: 70%"></div>
-              <div class="bar" style="--height: 95%"></div>
-              <div class="bar" style="--height: 76%"></div>
-            </div>
-
-            <div class="chart-labels">
-              <span>M</span>
-              <span>T</span>
-              <span>W</span>
-              <span>T</span>
-              <span>F</span>
-              <span>S</span>
-              <span>S</span>
-            </div>
-          </div>
-
-          <div class="activity">
-            <span class="status-dot" aria-hidden="true"></span>
-            <span class="activity-text">All projects are up to date</span>
-            <span class="activity-time">Just now</span>
-          </div>
-        </section>
-      </div>
-    </template>
-
-    <script>
-      const template = document.getElementById("page-template");
-
-      for (const id of ["before", "after"]) {
-        document.getElementById(id).append(template.content.cloneNode(true));
-      }
-    </script>
   </body>
 </html>
