@@ -474,10 +474,45 @@ layout: section
 # Part 2 - Agentic Development
 
 ---
-level:2
+level: 2
 ---
 
+# How We Write Better Software With Coding Agents?
 
+<v-clicks>
+
+- Not sure.
+- Probably the way we write better software as humans.
+
+</v-clicks>
+
+---
+level: 2
+---
+
+# DORA Metrics
+
+https://dora.dev
+
+Identifies these key metrics:
+
+- Deployment frequency
+- Lead time for changes
+- Change failure rate
+- Mean time to recovery
+
+---
+level: 2
+---
+
+# Other Reading
+
+<img
+  src="./images/accelerate.png"
+  alt="Cover of Accelerate"
+  class="block mx-auto"
+  style="max-height: 50vh; max-width: 100%; object-fit: contain;"
+/>
 
 <!-- Don't delete below -->
 ---
